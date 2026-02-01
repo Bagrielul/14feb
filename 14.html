@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Love... 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&family=Playfair+Display:wght@400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #fff0f5, #f5e6ff, #ffebee);
+      color: #5d2a42;
+      font-family: 'Playfair Display', serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: default;
+    }
+
+    .particles { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      animation: float linear infinite;
+      filter: drop-shadow(0 4px 12px rgba(194, 24, 91, 0.3));
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(120vh) rotate(0deg) scale(0.8); opacity: 0; }
+      15%  { opacity: 0.9; }
+      85%  { opacity: 0.8; }
+      100% { transform: translateY(-40vh) rotate(720deg) scale(1.2); opacity: 0; }
+    }
+
+    .spark {
+      position: absolute;
+      width: 6px; height: 6px;
+      background: #ffd700;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #ff69b4, 0 0 20px #ffd700;
+      animation: sparkle 4s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      0%,100% { transform: scale(0.5); opacity: 0; }
+      50%     { transform: scale(1.5); opacity: 0.9; }
+    }
+
+    .container {
+      text-align: center;
+      z-index: 10;
+      padding: 40px 30px;
+      max-width: 92%;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(5rem, 14vw, 11rem);
+      color: #c2185b;
+      margin-bottom: 10px;
+      text-shadow: 0 10px 30px rgba(194, 24, 91, 0.35);
+      animation: softGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes softGlow {
+      from { text-shadow: 0 8px 25px rgba(194,24,91,0.3), 0 0 40px rgba(255,105,180,0.4); }
+      to   { text-shadow: 0 15px 45px rgba(194,24,91,0.45), 0 0 80px rgba(255,182,193,0.7); }
+    }
+
+    .subtitle { font-family: 'Parisienne', cursive; font-size: clamp(2.2rem, 6vw, 4.5rem); color: #8b3a62; margin-bottom: 50px; letter-spacing: 2px; }
+    .question { font-size: clamp(2.4rem, 6.5vw, 4.2rem); color: #6d2f4f; margin: 30px 0 60px; font-weight: 400; text-shadow: 0 4px 15px rgba(255, 182, 193, 0.5); }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 40px;
+      position: relative;
+    }
+
+    button {
+      font-family: 'Parisienne', cursive;
+      font-size: 2.6rem;
+      padding: 22px 70px;
+      border-radius: 80px;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      border: 3px solid #d4af37;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25), inset 0 4px 12px rgba(255,255,255,0.6);
+      background: linear-gradient(145deg, #ffebee, #fff1f6);
+      color: #c2185b;
+      overflow: hidden;
+    }
+
+    button:hover { transform: scale(1.12) translateY(-6px); box-shadow: 0 20px 50px rgba(194, 24, 91, 0.4), inset 0 6px 20px rgba(255,255,255,0.8); }
+
+    #yes { background: linear-gradient(145deg, #ffebee, #f8bbd0); font-size: 2.8rem; }
+    #no { background: rgba(255, 248, 250, 0.6); color: #8b3a62; transition: all 0.4s; }
+
+    .music-controls {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      background: rgba(255,255,255,0.85);
+      border: 2px solid #d4af37;
+      color: #c2185b;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; cursor: pointer;
+      box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+      z-index: 100; transition: all 0.3s;
+    }
+
+    .music-controls:hover { transform: scale(1.15); }
+
+    .hidden { display: none !important; }
+
+    #success .heart { font-size: 9rem; animation: beat 1.4s infinite ease-in-out; color: #e91e63; text-shadow: 0 0 60px #ff8a80; margin: 40px 0 30px; }
+    @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+
+    .final-message { font-family: 'Great Vibes', cursive; font-size: clamp(3.5rem, 9vw, 7rem); color: #c2185b; text-shadow: 0 10px 40px rgba(194,24,91,0.5); margin-bottom: 30px; }
+
+    #force-message {
+      font-size: 2.5rem; color: #c2185b; margin: 40px 0; font-family: 'Parisienne', cursive;
+      animation: pulse 2s infinite; text-align: center; max-width: 80%;
+    }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  </style>
+</head>
+<body>
+
+  <div class="particles" id="particles"></div>
+
+  <div class="container" id="main">
+    <h1>My Love...</h1>
+    <div class="subtitle">I have something special to ask you</div>
+    <div class="question">Will you be my Valentine? 💕</div>
+
+    <div class="buttons">
+      <button id="yes">Yes, with all my heart! 🌹</button>
+      <button id="no">Maybe next time...</button>
+    </div>
+    <div id="force-message" class="hidden">You don't want to? 😏<br>Too bad... I want it for both of us 💋</div>
+  </div>
+
+  <div class="container hidden" id="success">
+    <div class="heart">💖</div>
+    <div class="final-message">You're mine now...</div>
+    <div style="font-size:2.3rem; color:#6d2f4f; max-width:700px; margin:0 auto 40px;">
+      February 14th is going to be magical with you by my side (si la filmu barbatos of abia astept sa plang).<br>
+      I love you so much, lumina ochilor mei, viata mea, comoara mea, totul pentru mine.
+    </div>
+    <div style="font-family: 'Parisienne', cursive; font-size:3rem; color:#c2185b;">
+      Forever yours 💋 ( cu mine mori de gat)
+    </div>
+  </div>
+
+  <div class="music-controls" id="musicToggle">🎵</div>
+
+  <audio id="bgMusic" loop>
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const particlesContainer = document.getElementById('particles');
+
+    // Creare particule mix: hearts, roses, petals, sparkles
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+
+      const types = ['heart', 'rose', 'petal', 'spark'];
+      const type = types[Math.floor(Math.random() * types.length)];
+
+      let content = '';
+      let size = Math.random() * 30 + 20;
+
+      if (type === 'heart') {
+        const hearts = ['💗', '❤️', '💖', '💕'];
+        content = hearts[Math.floor(Math.random() * hearts.length)];
+        size = Math.random() * 40 + 25;
+      } else if (type === 'rose') {
+        content = '🌹';
+        size = Math.random() * 35 + 30;
+      } else if (type === 'petal') {
+        content = '🌸'; // sau poți folosi emoji petal single dacă vrei
+        size = Math.random() * 25 + 15;
+      } else if (type === 'spark') {
+        particle.classList.add('spark');
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particlesContainer.appendChild(particle);
+        setTimeout(() => particle.remove(), 8000);
+        return; // spark e separat
+      }
+
+      particle.innerHTML = content;
+      particle.style.fontSize = size + 'px';
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.animationDuration = (Math.random() * 18 + 15) + 's'; // plutire lentă
+      particle.style.animationDelay = Math.random() * 10 + 's';
+      particle.style.opacity = Math.random() * 0.6 + 0.4;
+
+      particlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 40000);
+    }
+
+    // Mai multe particule + sparkles
+    setInterval(createParticle, 300); // density mai mare
+    setInterval(() => {
+      for(let i = 0; i < 3; i++) createParticle(); // burst mic random
+    }, 5000);
+
+    // Logica butoanelor (rămâne aceeași ca înainte)
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const forceMsg = document.getElementById('force-message');
+    const main = document.getElementById('main');
+    const success = document.getElementById('success');
+    const music = document.getElementById('bgMusic');
+    const toggle = document.getElementById('musicToggle');
+
+    music.volume = 0.28;
+    let noCount = 0;
+
+    noBtn.addEventListener('click', () => {
+      noCount++;
+      const x = (Math.random() - 0.5) * 300;
+      const y = (Math.random() - 0.5) * 200;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+      if (noCount === 1) noBtn.textContent = "Are you sure? 🥺";
+      else if (noCount === 2) {
+        noBtn.textContent = "Come on... 😏";
+        noBtn.style.padding = '18px 50px';
+        noBtn.style.fontSize = '2.2rem';
+      } else if (noCount === 3) {
+        noBtn.style.opacity = '0';
+        noBtn.style.pointerEvents = 'none';
+        forceMsg.classList.remove('hidden');
+        yesBtn.style.fontSize = '3.5rem';
+        yesBtn.style.padding = '30px 100px';
+        yesBtn.textContent = "Okay, Yes it is! 💖";
+
+        setTimeout(() => {
+          document.body.addEventListener('click', forceYes, { once: true });
+        }, 1500);
+      }
+
+      // Burst extra la No
+      for(let i = 0; i < 20; i++) setTimeout(createParticle, i * 80);
+    });
+
+    function forceYes() {
+      main.classList.add('hidden');
+      success.classList.remove('hidden');
+      music.muted = false;
+      music.play();
+      toggle.style.background = 'rgba(255,240,245,0.95)';
+      toggle.style.borderColor = '#e91e63';
+      for(let i = 0; i < 80; i++) setTimeout(createParticle, i * 50); // mare burst la accept
+    }
+
+    yesBtn.addEventListener('click', () => {
+      main.classList.add('hidden');
+      success.classList.remove('hidden');
+      music.muted = false;
+      music.play();
+      toggle.style.background = 'rgba(255,240,245,0.95)';
+      toggle.style.borderColor = '#e91e63';
+      for(let i = 0; i < 80; i++) setTimeout(createParticle, i * 50);
+    });
+
+    toggle.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        toggle.style.background = 'rgba(255,240,245,0.95)';
+      } else {
+        music.pause();
+        toggle.style.background = 'rgba(255,255,255,0.85)';
+      }
+    });
+
+    setTimeout(() => music.play().catch(() => {}), 800);
+  </script>
+</body>
+</html>
