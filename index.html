@@ -1,140 +1,393 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>My Love... 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&family=Playfair+Display:wght@400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch; /* smooth scroll pe iOS */
-  touch-action: manipulation;
-}
+    html {
+      height: -webkit-fill-available;
+      overflow-x: hidden;
+    }
 
-body {
-  min-height: 100dvh;               /* dynamic viewport height – cel mai bun pentru iPhone */
-  min-height: -webkit-fill-available; /* fallback vechi Safari */
-  height: auto;
-  background: linear-gradient(135deg, #fff0f5, #f5e6ff, #ffebee);
-  color: #5d2a42;
-  font-family: 'Playfair Display', serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    body {
+      min-height: 100dvh;
+      min-height: -webkit-fill-available;
+      height: 100%;
+      margin: 0;
+      background: linear-gradient(135deg, #fff0f5, #f5e6ff, #ffebee);
+      color: #5d2a42;
+      font-family: 'Playfair Display', serif;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overscroll-behavior: none;
+      touch-action: manipulation;
+    }
 
-.particles { 
-  position: fixed; 
-  inset: 0; 
-  pointer-events: none; 
-  z-index: 5; 
-  overflow: hidden;
-}
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      overflow: hidden;
+    }
 
-.container {
-  text-align: center;
-  z-index: 10;
-  padding: 5vh 5vw 8vh;           /* mai mult spațiu jos ca să nu intre sub bara de jos */
-  width: 100%;
-  max-width: 96vw;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 60dvh;              /* minim ca să nu fie prea gol pe ecrane înalte */
-}
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      animation: float linear infinite;
+      will-change: transform, opacity;
+    }
 
-h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(4.5rem, 14vw, 10rem);
-  color: #c2185b;
-  margin-bottom: 1vh;
-  text-shadow: 0 8px 25px rgba(194, 24, 91, 0.35);
-  animation: softGlow 5s ease-in-out infinite alternate;
-  line-height: 0.95;
-}
+    @keyframes float {
+      0%   { transform: translateY(110vh) rotate(0deg) scale(0.7); opacity: 0; }
+      10%  { opacity: 0.85; }
+      90%  { opacity: 0.75; }
+      100% { transform: translateY(-30vh) rotate(600deg) scale(1.1); opacity: 0; }
+    }
 
-.subtitle { 
-  font-family: 'Parisienne', cursive; 
-  font-size: clamp(2.1rem, 7.5vw, 4.2rem); 
-  color: #8b3a62; 
-  margin: 1vh 0 4vh; 
-  letter-spacing: 1.5px; 
-}
+    .spark {
+      position: absolute;
+      width: 5px; height: 5px;
+      background: #ffd700;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ff69b4, 0 0 16px #ffd700;
+      animation: sparkle 3.5s infinite ease-in-out;
+    }
 
-.question { 
-  font-size: clamp(2rem, 7vw, 3.6rem); 
-  color: #6d2f4f; 
-  margin: 2vh 0 6vh; 
-  text-shadow: 0 3px 12px rgba(255, 182, 193, 0.5); 
-}
+    @keyframes sparkle {
+      0%,100% { transform: scale(0.4); opacity: 0; }
+      50%     { transform: scale(1.3); opacity: 0.85; }
+    }
 
-.buttons {
-  display: flex;
-  flex-direction: column;           /* pe mobil mereu coloană */
-  align-items: center;
-  gap: 5vh;
-  width: 100%;
-  max-width: 400px;
-  margin: 2vh 0;
-}
+    .container {
+      text-align: center;
+      z-index: 10;
+      width: 100%;
+      max-width: 96vw;
+      padding: 5vh 5vw;
+      padding-bottom: calc(10vh + env(safe-area-inset-bottom, 0px));
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-button {
-  font-family: 'Parisienne', cursive;
-  font-size: clamp(2rem, 6vw, 2.6rem);
-  padding: 1.1em 2.2em;
-  border-radius: 3em;
-  border: 2.5px solid #d4af37;
-  background: linear-gradient(145deg, #ffebee, #fff1f6);
-  color: #c2185b;
-  box-shadow: 0 8px 25px rgba(212,175,55,0.2), inset 0 3px 10px rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: all 0.35s ease;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  width: 85%;
-  max-width: 360px;
-}
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(4.5rem, 14vw, 10rem);
+      color: #c2185b;
+      margin-bottom: 1vh;
+      text-shadow: 0 8px 25px rgba(194, 24, 91, 0.35);
+      animation: softGlow 5s ease-in-out infinite alternate;
+      line-height: 0.95;
+    }
 
-#yes {
-  background: linear-gradient(145deg, #ffebee, #f8bbd0);
-  font-size: clamp(2.2rem, 6.5vw, 2.9rem);
-}
+    @keyframes softGlow {
+      from { text-shadow: 0 6px 20px rgba(194,24,91,0.3), 0 0 35px rgba(255,105,180,0.4); }
+      to   { text-shadow: 0 12px 40px rgba(194,24,91,0.45), 0 0 70px rgba(255,182,193,0.65); }
+    }
 
-button:active {
-  transform: scale(0.94);
-  box-shadow: 0 4px 12px rgba(194,24,91,0.3);
-}
+    .subtitle {
+      font-family: 'Parisienne', cursive;
+      font-size: clamp(2.1rem, 7.5vw, 4.2rem);
+      color: #8b3a62;
+      margin: 1vh 0 4vh;
+      letter-spacing: 1.5px;
+    }
 
-.music-controls {
-  position: fixed;
-  bottom: max(16px, env(safe-area-inset-bottom, 16px));  /* respectă notch/bara de jos */
-  right: 16px;
-  z-index: 100;
-  /* restul rămâne la fel */
-}
+    .question {
+      font-size: clamp(2rem, 7vw, 3.6rem);
+      color: #6d2f4f;
+      margin: 2vh 0 6vh;
+      text-shadow: 0 3px 12px rgba(255, 182, 193, 0.5);
+    }
 
-/* Fix special iPhone landscape + small height */
-@media (max-height: 500px) or (orientation: landscape) and (max-width: 900px) {
-  .container { 
-    padding: 3vh 4vw 10vh; 
-    justify-content: flex-start;
-    padding-top: 8vh;
-  }
-  h1 { font-size: clamp(3.2rem, 12vw, 6rem); }
-  .question { font-size: clamp(1.6rem, 5.5vw, 2.4rem); margin: 1vh 0 3vh; }
-  .buttons { gap: 3vh; }
-}
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5vh;
+      width: 100%;
+      max-width: 400px;
+      margin: 2vh 0;
+    }
 
-/* Safestarea safe-area pentru notch și bara jos */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .container {
-    padding-bottom: calc(6vh + env(safe-area-inset-bottom));
-  }
-  .music-controls {
-    bottom: calc(16px + env(safe-area-inset-bottom));
-  }
-}
+    button {
+      font-family: 'Parisienne', cursive;
+      font-size: clamp(2rem, 6vw, 2.6rem);
+      padding: 1.1em 2.2em;
+      border-radius: 3em;
+      border: 2.5px solid #d4af37;
+      background: linear-gradient(145deg, #ffebee, #fff1f6);
+      color: #c2185b;
+      box-shadow: 0 8px 25px rgba(212,175,55,0.2), inset 0 3px 10px rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.35s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      width: 85%;
+      max-width: 360px;
+    }
+
+    #yes {
+      background: linear-gradient(145deg, #ffebee, #f8bbd0);
+      font-size: clamp(2.2rem, 6.5vw, 2.9rem);
+    }
+
+    button:active {
+      transform: scale(0.94);
+      box-shadow: 0 4px 12px rgba(194,24,91,0.3);
+    }
+
+    button:hover {
+      transform: scale(1.06);
+    }
+
+    .music-controls {
+      position: fixed;
+      bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+      right: 16px;
+      background: rgba(255,255,255,0.9);
+      border: 2px solid #d4af37;
+      color: #c2185b;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(212,175,55,0.25);
+      z-index: 100;
+      transition: all 0.25s;
+    }
+
+    .music-controls:active { transform: scale(0.92); }
+
+    .hidden { display: none !important; }
+
+    #success .heart {
+      font-size: clamp(6rem, 18vw, 9rem);
+      animation: beat 1.3s infinite ease-in-out;
+      color: #e91e63;
+      text-shadow: 0 0 50px #ff8a80;
+      margin: 3vh 0 2vh;
+    }
+
+    @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+
+    .final-message {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.2rem, 10vw, 6.5rem);
+      color: #c2185b;
+      text-shadow: 0 8px 35px rgba(194,24,91,0.5);
+      margin-bottom: 2vh;
+    }
+
+    #force-message {
+      font-size: clamp(1.9rem, 5.5vw, 2.4rem);
+      color: #c2185b;
+      margin: 3vh 0;
+      font-family: 'Parisienne', cursive;
+      animation: pulse 2.2s infinite;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+    /* Fallback + prioritate svh pe Safari nou */
+    @supports not (height: 100dvh) {
+      body { min-height: 100vh; }
+    }
+
+    @supports (height: 100svh) {
+      body { min-height: 100svh; }
+    }
+
+    /* Landscape / small height fix */
+    @media (orientation: landscape), (max-height: 500px) {
+      .container {
+        padding: 4vh 5vw 14vh;
+        justify-content: flex-start;
+        padding-top: 6vh;
+      }
+      h1 { font-size: clamp(3.5rem, 12vw, 7rem); }
+      .question { margin: 1.5vh 0 4vh; }
+      .buttons { gap: 4vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="particles" id="particles"></div>
+
+  <div class="container" id="main">
+    <h1>My Love...</h1>
+    <div class="subtitle">I have something special to ask you</div>
+    <div class="question">Will you be my Valentine? 💕</div>
+
+    <div class="buttons">
+      <button id="yes">Yes, with all my heart! 🌹</button>
+      <button id="no">Maybe next time...</button>
+    </div>
+    <div id="force-message" class="hidden">You don't want to? 😏<br>Too bad... I want it for both of us, si nu se accepta nu 💋</div>
+  </div>
+
+  <div class="container hidden" id="success">
+    <div class="heart">💖</div>
+    <div class="final-message">You're mine now...</div>
+    <div style="font-size: clamp(1.6rem, 4.8vw, 2.2rem); color:#6d2f4f; max-width:700px; margin:0 auto 3vh; line-height:1.4;">
+      February 14th is going to be magical with you by my side (si la filmu barbatos of abia astept sa plang).<br>
+      I love you so much, lumina ochilor mei, viata mea, comoara mea, totul pentru mine.
+    </div>
+    <div style="font-family: 'Parisienne', cursive; font-size: clamp(2.4rem, 7vw, 3rem); color:#c2185b;">
+      Forever yours 💋 ( cu mine mori de gat)
+    </div>
+  </div>
+
+  <div class="music-controls" id="musicToggle">🎵</div>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const particlesContainer = document.getElementById('particles');
+    const isMobile = window.innerWidth <= 600 || 'ontouchstart' in window;
+
+    function createParticle() {
+      if (isMobile && Math.random() > 0.6) return; // mai puține pe mobil
+
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+
+      const types = ['heart', 'rose', 'petal', 'spark'];
+      const type = types[Math.floor(Math.random() * types.length)];
+
+      let content = '';
+      let size = Math.random() * 24 + 16;
+
+      if (type === 'heart') {
+        const hearts = ['💗','❤️','💖','💕'];
+        content = hearts[Math.floor(Math.random() * hearts.length)];
+        size = Math.random() * 32 + 20;
+      } else if (type === 'rose') {
+        content = '🌹';
+        size = Math.random() * 28 + 22;
+      } else if (type === 'petal') {
+        content = '🌸';
+        size = Math.random() * 20 + 12;
+      } else if (type === 'spark') {
+        particle.classList.add('spark');
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top  = Math.random() * 100 + 'vh';
+        particle.style.animationDuration = (Math.random() * 2.5 + 1.8) + 's';
+        particle.style.animationDelay = Math.random() * 4 + 's';
+        particlesContainer.appendChild(particle);
+        setTimeout(() => particle.remove(), 7000);
+        return;
+      }
+
+      particle.innerHTML = content;
+      particle.style.fontSize = size + 'px';
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.animationDuration = (Math.random() * 14 + 12) + 's';
+      particle.style.animationDelay = Math.random() * 8 + 's';
+      particle.style.opacity = Math.random() * 0.5 + 0.35;
+
+      particlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 32000);
+    }
+
+    const particleInterval = isMobile ? 700 : 300;
+    setInterval(createParticle, particleInterval);
+
+    // ────────────────────────────────────────────────
+    // butoane logic
+    // ────────────────────────────────────────────────
+
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const forceMsg = document.getElementById('force-message');
+    const main = document.getElementById('main');
+    const success = document.getElementById('success');
+    const music = document.getElementById('bgMusic');
+    const toggle = document.getElementById('musicToggle');
+
+    music.volume = 0.25;
+    let noCount = 0;
+
+    noBtn.addEventListener('click', () => {
+      noCount++;
+      const x = (Math.random() - 0.5) * (isMobile ? 180 : 300);
+      const y = (Math.random() - 0.5) * (isMobile ? 120 : 200);
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+      if (noCount === 1) noBtn.textContent = "Sigur nu vrei? 🥺";
+      else if (noCount === 2) {
+        noBtn.textContent = "Hai că ştii că vrei... 😏";
+      } else if (noCount >= 3) {
+        noBtn.style.opacity = '0';
+        noBtn.style.pointerEvents = 'none';
+        forceMsg.classList.remove('hidden');
+        yesBtn.style.fontSize = isMobile ? 'clamp(2.4rem,7vw,3.2rem)' : '3.5rem';
+        yesBtn.textContent = "Bine, daaaa! 💖";
+
+        setTimeout(() => {
+          document.body.addEventListener('click', forceYes, { once: true });
+        }, 1400);
+      }
+
+      for(let i = 0; i < (isMobile ? 10 : 20); i++) {
+        setTimeout(createParticle, i * 60);
+      }
+    });
+
+    function forceYes() {
+      main.classList.add('hidden');
+      success.classList.remove('hidden');
+      music.muted = false;
+      music.play().catch(()=>{});
+      toggle.style.background = 'rgba(255,240,245,0.95)';
+      toggle.style.borderColor = '#e91e63';
+      for(let i = 0; i < (isMobile ? 40 : 80); i++) {
+        setTimeout(createParticle, i * 40);
+      }
+    }
+
+    yesBtn.addEventListener('click', () => {
+      main.classList.add('hidden');
+      success.classList.remove('hidden');
+      music.muted = false;
+      music.play().catch(()=>{});
+      toggle.style.background = 'rgba(255,240,245,0.95)';
+      toggle.style.borderColor = '#e91e63';
+      for(let i = 0; i < (isMobile ? 40 : 80); i++) {
+        setTimeout(createParticle, i * 40);
+      }
+    });
+
+    toggle.addEventListener('click', () => {
+      if (music.paused) {
+        music.play().catch(()=>{});
+        toggle.style.background = 'rgba(255,240,245,0.95)';
+      } else {
+        music.pause();
+        toggle.style.background = 'rgba(255,255,255,0.85)';
+      }
+    });
+
+    setTimeout(() => {
+      music.play().catch(() => console.log("Autoplay blocked"));
+    }, 800);
+  </script>
+</body>
+</html>
